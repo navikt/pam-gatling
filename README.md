@@ -1,16 +1,16 @@
 # pam-gatling
 
-####Offisiell dokumentasjon
+#### Offisiell dokumentasjon
 https://gatling.io/docs/current/quickstart/
 https://gatling.io/docs/current/advanced_tutorial/#advanced-tutorial
 
-####Kjør test
-######Windows
+#### Kjør test
+###### Windows
 ```sh
 cd bin
 gatling.bat
 ```
-######Linux
+###### Linux
 ```sh
 cd bin
 ./gatling.sh
