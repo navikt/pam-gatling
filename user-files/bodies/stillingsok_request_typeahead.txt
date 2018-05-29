@@ -1,0 +1,1 @@
+{"suggest":{"yrkeskategori":{"prefix":"${TYPEAHEAD}","completion":{"field":"category_suggest","contexts":{"status":"ACTIVE"},"size":500}},"searchtags":{"prefix":"${TYPEAHEAD}","completion":{"field":"searchtags_suggest","contexts":{"status":"ACTIVE"},"size":500}}},"_source":false}
