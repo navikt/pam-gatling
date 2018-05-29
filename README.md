@@ -1,8 +1,8 @@
 # pam-gatling
 
 #### Offisiell dokumentasjon
-https://gatling.io/docs/current/quickstart/
-https://gatling.io/docs/current/advanced_tutorial/#advanced-tutorial
+- https://gatling.io/docs/current/quickstart/
+- https://gatling.io/docs/current/advanced_tutorial/#advanced-tutorial
 
 #### Kjør test
 ###### Windows
