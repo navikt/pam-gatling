@@ -1,0 +1,10 @@
+{
+  "simulation": "stillingsok.StillingsokSok",
+  "simulationId": "stillingsok2000",
+  "start": 1527583639911,
+  "description": "ramp, 10s",
+  "scenarios": ["Search"],
+  "assertions": [
+
+  ]
+}
