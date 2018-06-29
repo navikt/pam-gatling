@@ -21,3 +21,7 @@ En liste med simuleringer (tester) vil vises.
 - Skriv inn beskrivelse av kjøring om ønskelig, eller trykk Enter for tom beskrivelse.
 
 Simulering blir nå kjørt.
+
+#### Resultater
+Resultatene ligger i mappen "results". Resultater man ønsker å beholde kan flyttes oveer til mappen "results_to_keep" og pushes til GitHub.
+For å se på resultatet åpner man index.html som ligger i mappen for den respektive kjøring.  
