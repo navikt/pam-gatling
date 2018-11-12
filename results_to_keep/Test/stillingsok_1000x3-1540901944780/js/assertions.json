@@ -1,0 +1,10 @@
+{
+  "simulation": "stillingsok.Stillingsok",
+  "simulationId": "stillingsok_1000x3",
+  "start": 1540901944780,
+  "description": "test",
+  "scenarios": ["Search", "SearchLastPage", "SearchOpenAnnonse"],
+  "assertions": [
+
+  ]
+}

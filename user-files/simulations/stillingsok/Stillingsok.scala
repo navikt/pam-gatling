@@ -9,7 +9,7 @@ import io.gatling.jdbc.Predef._
 
 class Stillingsok extends Simulation {
 
-  val prod = "https://pam-stillingsok.nais.oera.no"
+  val prod = "https://stillingsok.nav.no/"
   val test = "https://pam-stillingsok.nais.oera-q.local"
 
   val env = test // Miljøet som testen skal kjøres på
@@ -95,8 +95,8 @@ class Stillingsok extends Simulation {
   val searchOpenAnnonse = scenario("SearchOpenAnnonse").exec(FrontPage.loadFrontPage, Search.search, OpenAnnonse.openAnnonse)
 
   setUp(
-    search.inject(rampUsers(1000) over (10 seconds)),
-    searchLastPage.inject(rampUsers(1000) over (10 seconds)),
-    searchOpenAnnonse.inject(rampUsers(1000) over (10 seconds))
+    search.inject(rampUsers(250) over (10 seconds)),
+    searchLastPage.inject(rampUsers(250) over (10 seconds)),
+    searchOpenAnnonse.inject(rampUsers(250) over (10 seconds))
   ).protocols(httpProtocol)
 }
