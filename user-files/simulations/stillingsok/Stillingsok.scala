@@ -24,6 +24,9 @@ class Stillingsok extends Simulation {
 
   val uri1 = env + ":443"
 
+  val searchApiSearch = "/api/search"
+  var searchApiSuggestions = "/api/suggestions"
+
   // Headers
   val headers_0 = Map(
     "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -44,7 +47,7 @@ class Stillingsok extends Simulation {
       .get("/")
       .headers(headers_0)
       .resources(http("request_initial_search")
-        .post("/pam-stillingsok/search-api/ad/_search")
+        .post(searchApiSearch)
         .headers(headers_1)
         .body(ElFileBody("stillingsok_request_initial_search.txt"))))
       .pause(5)
@@ -56,13 +59,13 @@ class Stillingsok extends Simulation {
     val search = feed(searchInput)
       .feed(searchInputPlace)
       .exec(http("request_typeahead")
-        .post("/pam-stillingsok/search-api/ad/_search")
+        .post(searchApiSuggestions)
         .headers(headers_1)
         .body(ElFileBody("stillingsok_request_typeahead.txt")))
       .pause(1)
       .exec(_.set("FROM", 0))
       .exec(http("request_search")
-        .post("/pam-stillingsok/search-api/ad/_search")
+        .post(searchApiSearch)
         .headers(headers_1)
         .body(ElFileBody("stillingsok_request_search.txt"))
         .check(jsonPath("$.timed_out").is("false"))
@@ -75,7 +78,7 @@ class Stillingsok extends Simulation {
 
     val lastPage = exec(session => session.set("FROM", session("treff").as[String].toInt - 1))
       .exec(http("request_search_last_page")
-        .post("/pam-stillingsok/search-api/ad/_search")
+        .post(searchApiSearch)
         .headers(headers_1)
         .body(ElFileBody("stillingsok_request_search.txt"))
         .check(jsonPath("$.timed_out").is("false")))
@@ -85,8 +88,7 @@ class Stillingsok extends Simulation {
   object OpenAnnonse {
 
     val openAnnonse = exec(http("request_open_annonse")
-      .get(s"/pam-stillingsok/search-api/stillingsok/ad/ad/" + _("id").as[String] +
-        "?_source_exclude=administration,categoryList,contactList,created,createdBy,employer,expires,geopoint,id,location,mediaList,medium,privacy,properties.author,properties.industry,properties.keywords,properties.occupation,properties.searchtags,properties.sourceupdated,published,updatedBy,uuid")
+      .get(s"/api/stilling/" + _("id").as[String])
       .headers(headers_4))
   }
 
@@ -95,8 +97,8 @@ class Stillingsok extends Simulation {
   val searchOpenAnnonse = scenario("SearchOpenAnnonse").exec(FrontPage.loadFrontPage, Search.search, OpenAnnonse.openAnnonse)
 
   setUp(
-    search.inject(rampUsers(250) over (10 seconds)),
-    searchLastPage.inject(rampUsers(250) over (10 seconds)),
-    searchOpenAnnonse.inject(rampUsers(250) over (10 seconds))
+    search.inject(rampUsers(500) over (10 seconds)),
+    searchLastPage.inject(rampUsers(500) over (10 seconds)),
+    searchOpenAnnonse.inject(rampUsers(500) over (10 seconds))
   ).protocols(httpProtocol)
 }
