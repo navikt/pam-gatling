@@ -97,8 +97,8 @@ class Stillingsok extends Simulation {
   val searchOpenAnnonse = scenario("SearchOpenAnnonse").exec(FrontPage.loadFrontPage, Search.search, OpenAnnonse.openAnnonse)
 
   setUp(
-    search.inject(rampUsers(500) over (10 seconds)),
-    searchLastPage.inject(rampUsers(500) over (10 seconds)),
-    searchOpenAnnonse.inject(rampUsers(500) over (10 seconds))
+    search.inject(rampUsers(250) over (10 seconds)),
+    searchLastPage.inject(rampUsers(250) over (10 seconds)),
+    searchOpenAnnonse.inject(rampUsers(250) over (10 seconds))
   ).protocols(httpProtocol)
 }
