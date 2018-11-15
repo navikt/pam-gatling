@@ -25,7 +25,10 @@ class Stillingsok extends Simulation {
   val uri1 = env + ":443"
 
   val searchApiSearch = "/api/search"
-  var searchApiSuggestions = "/api/suggestions"
+  val searchApiSuggestions = "/api/suggestions"
+
+  val initialSearch = "{}"
+  val requestSearch = "{\"q\":\"${YRKE}\",\"counties\":\"[${FYLKE}]\"}"
 
   // Headers
   val headers_0 = Map(
@@ -49,7 +52,7 @@ class Stillingsok extends Simulation {
       .resources(http("request_initial_search")
         .post(searchApiSearch)
         .headers(headers_1)
-        .body(ElFileBody("stillingsok_request_initial_search.txt"))))
+        .body(StringBody(initialSearch))))
       .pause(5)
   }
 
@@ -67,7 +70,7 @@ class Stillingsok extends Simulation {
       .exec(http("request_search")
         .post(searchApiSearch)
         .headers(headers_1)
-        .body(ElFileBody("stillingsok_request_search.txt"))
+        .body(StringBody(requestSearch))
         .check(jsonPath("$.timed_out").is("false"))
         .check(jsonPath("$.hits.total").saveAs("treff"))
         .check(jsonPath("$.hits.hits[0]._id").saveAs("id")))
@@ -80,7 +83,7 @@ class Stillingsok extends Simulation {
       .exec(http("request_search_last_page")
         .post(searchApiSearch)
         .headers(headers_1)
-        .body(ElFileBody("stillingsok_request_search.txt"))
+        .body(StringBody(requestSearch))
         .check(jsonPath("$.timed_out").is("false")))
   }
 
